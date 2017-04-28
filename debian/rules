@@ -11,6 +11,23 @@
 
 CFLAGS = -Wall -g
 
+ifeq ($(DEB_HOST_GNU_TYPE),$(DEB_BUILD_GNU_TYPE))
+CC = gcc
+CPP = cpp
+AR = ar
+STRIP = strip
+INSTALL = install
+else
+# cross build
+CC = $(DEB_HOST_GNU_TYPE)-gcc
+CPP = $(DEB_HOST_GNU_TYPE)-cpp
+AR = $(DEB_HOST_GNU_TYPE)-ar
+STRIP = $(DEB_HOST_GNU_TYPE)-strip
+INSTALL = install --strip-program=$(STRIP)
+endif
+export CC CPP AR STRIP INSTALL
+
+
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
 else
@@ -67,9 +84,14 @@ binary-arch: build install
 	dh_compress
 	dh_fixperms
 	chmod 600 $(CURDIR)/debian/xl2tpd/etc/xl2tpd/l2tp-secrets
+	dh_lintian
 	dh_installdeb
 	dh_shlibdeps
-	dh_gencontrol
+	if [ -n "$$UBNT_DEV_PKG_VERSION" ]; then \
+		dh_gencontrol -- "-v$$UBNT_DEV_PKG_VERSION"; \
+	else \
+		dh_gencontrol; \
+	fi
 	dh_md5sums
 	dh_builddeb
 
