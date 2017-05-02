@@ -1,0 +1,9 @@
+xl2tpd (1.3.9+ubnt1) ubnt-upstream; urgency=low
+
+  * Merge latest v1.3.9 from upstream
+
+ -- Alex Fomins <alex.fomins@ubnt.org>  Fri, 28 Apr 2017 12:42:24 +0100
+
+Local variables:
+mode: debian-changelog
+End:
