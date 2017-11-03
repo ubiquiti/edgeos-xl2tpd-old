@@ -1,3 +1,9 @@
+xl2tpd (1.3.9+ubnt3) ubnt-upstream; urgency=low
+
+  * New version
+
+ -- Alex Fomins <alex.fomins@ubnt.com>  Fri, 03 Nov 2017 13:03:46 +0000
+
 xl2tpd (1.3.9+ubnt1) ubnt-upstream; urgency=low
 
   * Merge latest v1.3.9 from upstream
